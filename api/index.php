@@ -386,30 +386,34 @@ header("Referrer-Policy: no-referrer-when-downgrade");
         let phpExtractedUrl = "<?php echo $currentStreamUrl; ?>";
         let htmlRemotoParaIframe = <?php echo empty($currentStreamUrl) ? json_encode($html) : '""'; ?>;
 
-        window.inicializarTuPlayerNativo = function(urlFinalStream) {
-            if (!urlFinalStream) return;
-            
-            const nativePlayerBox = document.getElementById('playerContainer');
-            if (nativePlayerBox) {
-                nativePlayerBox.style.display = 'block';
-            }
+       window.inicializarTuPlayerNativo = function(urlFinalStream) {
+    if (!urlFinalStream) return;
+    
+    // Si la URL es externa y va a un CDN, pásala por tu proxy PHP
+    if (urlFinalStream.includes('dramiyos-cdn.com') || urlFinalStream.includes('acek-cdn.com')) {
+        urlFinalStream = '/index.php?url=' + encodeURIComponent(urlFinalStream);
+    }
 
-            if (typeof window.playCustomVideo === 'function') {
-                window.playCustomVideo(urlFinalStream);
-            } else {
-                const videoTag = document.getElementById('myVideo');
-                if (videoTag) {
-                    if (urlFinalStream.includes('.m3u8') && typeof Hls !== 'undefined' && Hls.isSupported()) {
-                        const hls = new Hls();
-                        hls.loadSource(urlFinalStream);
-                        hls.attachMedia(videoTag);
-                    } else {
-                        videoTag.src = urlFinalStream;
-                    }
-                    videoTag.play().catch(e => console.log("Interacción requerida"));
+    const nativePlayerBox = document.getElementById('playerContainer');
+    if (nativePlayerBox) {
+        nativePlayerBox.style.display = 'block';
+    }
+
+    const videoTag = document.getElementById('myVideo');
+    if (videoTag) {
+        if (urlFinalStream.includes('.m3u8') && typeof Hls !== 'undefined' && Hls.isSupported()) {
+            const hls = new Hls({
+                xhrSetup: function(xhr, url) {
+                    // Prevenir que hls.js pierda las cabeceras si rediriges
                 }
-            }
-        };
+            });
+            hls.loadSource(urlFinalStream);
+            hls.attachMedia(videoTag);
+        } else {
+            videoTag.src = urlFinalStream;
+        }
+    }
+};
 
         document.addEventListener("DOMContentLoaded", function() {
             if (phpExtractedUrl !== "") {
