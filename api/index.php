@@ -12,7 +12,7 @@ function mostrar_pantalla_error($mensaje_error = "Error - Comuníquese con su pr
         <meta charset="UTF-8">
         <title>Player Proxy - Error</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="cssmp4.css"/>
+        <link rel="stylesheet" href="/pVID.css"/>
         <style>
             .modal-alerta-error {
                 position: fixed;
@@ -308,9 +308,9 @@ header("Referrer-Policy: no-referrer-when-downgrade");
     <meta charset="UTF-8">
     <title>Player Proxy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="pVID.css"/>
+    <link rel="stylesheet" href="/pVID.css"/>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script type="text/javascript" src="scrolltv.js"></script>
+    <script type="text/javascript" src="/scrolltv.js"></script>
     <style>
         /* El contenedor ahora aloja un iframe blindado */
         #remote-hidden-container {
@@ -382,7 +382,7 @@ header("Referrer-Policy: no-referrer-when-downgrade");
         ?>
     </div>
 
-    <script src="pVID.js"></script>
+    <script src="/pVID.js"></script>
     <script type="text/javascript">
         let phpExtractedUrl = "<?php echo $currentStreamUrl; ?>";
         let htmlRemotoParaIframe = <?php echo empty($currentStreamUrl) ? json_encode($html) : '""'; ?>;
