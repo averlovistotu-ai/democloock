@@ -299,7 +299,6 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Credentials: true");
 header("Permissions-Policy: encrypted-media=*, autoplay=*, fullscreen=*");
-header("Feature-Policy: encrypted-media *; autoplay *; fullscreen *");
 header("Referrer-Policy: no-referrer-when-downgrade");
 ?>
 <!DOCTYPE html>
